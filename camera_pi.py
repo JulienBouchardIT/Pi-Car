@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 #
 #  camera_pi.py
-#
-#
-#
+#  
+#  
+#  
 import time
 import io
 import threading
