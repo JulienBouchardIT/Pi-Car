@@ -14,9 +14,9 @@ def home():
             green()
         elif request.form.get('blue_button') == 'blue':
             blue()
-        elif request.form.get('on_button') == 'on':
+        elif request.form.get('on_button') == 'ON':
             on()
-        elif request.form.get('off_button') == 'off':
+        elif request.form.get('off_button') == 'OFF':
             off()
     return render_template("index.html")
 

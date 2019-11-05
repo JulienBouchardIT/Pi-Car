@@ -4,3 +4,25 @@ body{
 	padding:1%;
 	text-align: center;
 }
+
+input{
+    font-weight: bold;
+    border-radius: 25px;
+    height: 50px;
+    width: 50px;
+}
+
+#red{
+    background: red;
+    color: red;
+}
+
+#green{
+    background: green;
+    color: green;
+}
+
+#blue{
+    background: blue;
+    color: blue;
+}

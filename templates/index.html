@@ -2,15 +2,16 @@
   <head>
     <title>&pi;car</title>
     <link rel="stylesheet" href='../static/style.css'/>
+    <link rel="shortcut icon" href="../static/rasp-logo.png">
   </head>
   <body>
     <h3><img src="{{ url_for('video_feed') }}" width="50%"></h3>
   	<form method="post" action="/">
-		<input type="submit" name="on_button" value="on"/>
-		<input type="submit" name="off_button" value="off"/>
-		<input type="submit" name="red_button" value="red"/>
-		<input type="submit" name="green_button" value="green"/>
-		<input type="submit" name="blue_button" value="blue"/>
+		<input id="on" type="submit" name="on_button" value="ON"/>
+		<input id="off" type="submit" name="off_button" value="OFF"/>
+		<input id="red" type="submit" name="red_button" value="red"/>
+		<input id="green" type="submit" name="green_button" value="green"/>
+		<input id="blue" type="submit" name="blue_button" value="blue"/>
 	</form>
   </body>
 </html>
