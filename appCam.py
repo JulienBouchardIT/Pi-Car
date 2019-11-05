@@ -1,23 +1,24 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-#
-#  	appCam.py
-#  	based on tutorial ==> https://blog.miguelgrinberg.com/post/video-streaming-with-flask
-# 	PiCam Local Web Server with Flask
-# MJRoBot.org 19Jan18
-
-from flask import Flask, render_template, Response
-
-# Raspberry Pi camera module (requires picamera package)
+from flask import Flask, render_template, Response, request
 from camera_pi import Camera
+from light_led import *
 
 app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    """Video streaming home page."""
-    return render_template('index.html')
+@app.route("/", methods=['GET', 'POST'])
+def home():
+    if request.method == 'POST':
+        if request.form.get('red_button') == 'red':
+            red()
+        elif request.form.get('green_button') == 'green':
+            green()
+        elif request.form.get('blue_button') == 'blue':
+            blue()
+        elif request.form.get('on_button') == 'on':
+            on()
+        elif request.form.get('off_button') == 'off':
+            off()
+    return render_template("index.html")
 
 
 def gen(camera):
@@ -36,4 +37,4 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port =80, debug=True, threaded=True)
+    app.run(host='0.0.0.0', port=80, debug=True, threaded=True)

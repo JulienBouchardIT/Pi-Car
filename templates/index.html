@@ -1,17 +1,16 @@
-<!--
-   index.html
-   
--->
-
 <html>
   <head>
-    <title>MJRoBot Lab Live Streaming</title>
+    <title>&pi;car</title>
     <link rel="stylesheet" href='../static/style.css'/>
   </head>
   <body>
-    <h1>MJRoBot Lab Live Streaming</h1>
     <h3><img src="{{ url_for('video_feed') }}" width="50%"></h3>
-    <hr>
-    <p> @2018 Developed by MJRoBot.org</p>
+  	<form method="post" action="/">
+		<input type="submit" name="on_button" value="on"/>
+		<input type="submit" name="off_button" value="off"/>
+		<input type="submit" name="red_button" value="red"/>
+		<input type="submit" name="green_button" value="green"/>
+		<input type="submit" name="blue_button" value="blue"/>
+	</form>
   </body>
 </html>
