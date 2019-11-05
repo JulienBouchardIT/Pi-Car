@@ -1,11 +1,13 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Response
+from camera import VideoCamera
 from light_led import *
 
 app = Flask(__name__)
+video_camera = VideoCamera(flip=True) # creates a camera object, flip vertically
+
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    print(request)
     if request.method == 'POST':
         if request.form.get('red_button') == 'red':
             red()
@@ -19,26 +21,36 @@ def home():
             off()
     return render_template("home.html")
 
+
 @app.route("/api/<string:command>/")
 def execute(command):
- if command == "on":
-  on()
-  return "on DONE"
- elif command == "off":
-  off()
-  return command+" DONE"
- elif command == "red":
-  red()
-  return command+" DONE"
- elif command == "green":
-  green()
-  return command+" DONE"
- elif command == "blue":
-  blue()
-  return command+" DONE"
- else:
-  return "Invalid args"
+    if command == "on":
+        on()
+    elif command == "off":
+        off()
+    elif command == "red":
+        red()
+    elif command == "green":
+        green()
+    elif command == "blue":
+        blue()
+    else:
+        return "Invalid args"
+    return command+" DONE"
+
+
+def gen(camera):
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(video_camera),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 if __name__ == "__main__":
- app.run(host="0.0.0.0",port=80,debug=True)
-
+ app.run(host="0.0.0.0", port=80, debug=True)
