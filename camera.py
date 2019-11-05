@@ -1,50 +1,61 @@
-# Reference: https://github.com/HackerShackOfficial/Smart-Security-Camera
-
-import cv2
-from imutils.video.pivideostream import PiVideoStream
-import imutils
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+#  camera_pi.py
+#
+#
+#
 import time
-import numpy as np
+import io
+import threading
+import picamera
 
 
-class VideoCamera(object):
-    def __init__(self, flip = False):
-        self.vs = PiVideoStream().start()
-        self.flip = flip
-        time.sleep(2.0)
+class Camera(object):
+    thread = None  # background thread that reads frames from camera
+    frame = None  # current frame is stored here by background thread
+    last_access = 0  # time of last client access to the camera
 
-    def __del__(self):
-        self.vs.stop()
+    def initialize(self):
+        if Camera.thread is None:
+            # start background frame thread
+            Camera.thread = threading.Thread(target=self._thread)
+            Camera.thread.start()
 
-    def flip_if_needed(self, frame):
-        if self.flip:
-            return np.flip(frame, 0)
-        return frame
+            # wait until frames start to be available
+            while self.frame is None:
+                time.sleep(0)
 
     def get_frame(self):
-        frame = self.flip_if_needed(self.vs.read())
-        ret, jpeg = cv2.imencode('.jpg', frame)
-        return jpeg.tobytes()
+        Camera.last_access = time.time()
+        self.initialize()
+        return self.frame
 
-    def get_object(self, classifier):
-        found_objects = False
-        frame = self.flip_if_needed(self.vs.read()).copy()
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    @classmethod
+    def _thread(cls):
+        with picamera.PiCamera() as camera:
+            # camera setup
+            camera.resolution = (320, 240)
+            camera.hflip = True
+            camera.vflip = True
 
-        objects = classifier.detectMultiScale(
-            gray,
-            scaleFactor=1.1,
-            minNeighbors=5,
-            minSize=(30, 30),
-            flags=cv2.CASCADE_SCALE_IMAGE
-        )
+            # let camera warm up
+            camera.start_preview()
+            time.sleep(2)
 
-        if len(objects) > 0:
-            found_objects = True
+            stream = io.BytesIO()
+            for foo in camera.capture_continuous(stream, 'jpeg',
+                                                 use_video_port=True):
+                # store frame
+                stream.seek(0)
+                cls.frame = stream.read()
 
-        # Draw a rectangle around the objects
-        for (x, y, w, h) in objects:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                # reset stream for next frame
+                stream.seek(0)
+                stream.truncate()
 
-        ret, jpeg = cv2.imencode('.jpg', frame)
-        return (jpeg.tobytes(), found_objects)
+                # if there hasn't been any clients asking for frames in
+                # the last 10 seconds stop the thread
+                if time.time() - cls.last_access > 10:
+                    break
+        cls.thread = None
