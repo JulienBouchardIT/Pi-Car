@@ -1,6 +1,7 @@
-from flask import Flask, render_template, Response, request
+from flask import Flask, render_template, Response, request, jsonify
 from camera_pi import Camera
 from light_led import *
+
 
 app = Flask(__name__)
 
@@ -18,7 +19,8 @@ def home():
             on()
         elif request.form.get('off_button') == 'OFF':
             off()
-        return Response
+        resp = jsonify(success=True)
+        return resp
     else:
         return render_template("index.html")
 

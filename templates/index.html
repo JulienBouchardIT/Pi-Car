@@ -6,7 +6,7 @@
     <script src="../static/car-control.js"></script>
   </head>
   <body>
-    <h3><img src="{{ url_for('video_feed') }}" height="100%" width="100%" onkeydown="down" onkeyup="up"></h3>
+    <h3><img src="{{ url_for('video_feed') }}" width="90%" onkeydown="down" onkeyup="up"></h3>
   	<form method="post" action="/">
 		<input id="on" type="submit" name="on_button" value="ON"/>
 		<input id="off" type="submit" name="off_button" value="OFF"/>
