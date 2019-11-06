@@ -19,8 +19,6 @@ def home():
             on()
         elif request.form.get('off_button') == 'OFF':
             off()
-        resp = jsonify(success=True)
-        return resp
     else:
         return render_template("index.html")
 
