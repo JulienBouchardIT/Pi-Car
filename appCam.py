@@ -18,7 +18,23 @@ def home():
             on()
         elif request.form.get('off_button') == 'OFF':
             off()
-    return render_template("index.html")
+        return Response
+    else:
+        return render_template("index.html")
+
+
+@app.route("/api/command", methods=['POST'])
+def command():
+    command = request.form.get('command')
+    power = request.form.get('power') == 'true'
+    if command == 'up':
+        up(power)
+    if command == 'down':
+        down(power)
+    if command == 'left':
+        left(power)
+    if command == 'right':
+        right(power)
 
 
 def gen(camera):
