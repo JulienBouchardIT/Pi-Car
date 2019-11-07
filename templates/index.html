@@ -1,55 +1,3 @@
-<!--<html>
-  <head>
-    <title>&pi;car</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href='../static/style.css'/>
-    <link rel="shortcut icon" href="../static/rasp-logo.png">
-    <script src="../static/car-control.js"></script>
-
-
-    <script>
-
-
-function interpret_command(power, key){
-    switch(key){
-        case 87: // w : UP
-            alert("up")
-            break;
-        case 83: // s : DOWN
-            alert("DOWN")
-            break;
-        case 65: // a : LEFT
-            alert("LEFT")
-            break;
-        case 68: // d : RIGHT
-            alert("RIGHT")
-            break:
-        default:
-            break;
-    }
-}
-
-function down(event){
-    send_command(false, event.keyCode);
-}
-
-function up(event){
-alert(1)
-    send_command(true, event.keyCode);
-}
-    </script>
-
-  </head>
-  <body>
-    <input onkeydown="down" onkeyup="up">
-    <img src="{{ url_for('video_feed') }}" width="90%">
-    </input>
-  </body>
-</html>
-
--->
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -60,8 +8,6 @@ alert(1)
         <script src="../static/car-control.js"></script>
     </head>
     <body>
-
-    <input type="image" src="{{ url_for('video_feed') }}" onkeydown="down()" onkeyup="up()" height="100%" width="90%"/>
-
+        <input type="image" src="{{ url_for('video_feed') }}" onkeydown="down()" onkeyup="up()" width="100%"/>
     </body>
 </html>

@@ -1,31 +1,28 @@
 
-alert("!!!!");
 
-/*function interpret_command(power, key){
+function send_command(power, key){
     switch(key){
         case 87: // w : UP
-            alert("up")
+            alert("UP "+power)
             break;
         case 83: // s : DOWN
-            alert("DOWN")
+            alert("DOWN "+power)
             break;
         case 65: // a : LEFT
-            alert("LEFT")
+            alert("LEFT "+power)
             break;
         case 68: // d : RIGHT
-            alert("RIGHT")
-            break:
+            alert("RIGHT "+power)
+            break;
         default:
             break;
     }
-}*/
+}
 
 function down(event){
-    alert(0)
-    //send_command(false, event.keyCode);
+    send_command(false, event.keyCode);
 }
 
 function up(event){
-alert(1)
-    //send_command(true, event.keyCode);
+    send_command(true, event.keyCode);
 }
