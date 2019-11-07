@@ -14,15 +14,15 @@ def home():
 @app.route("/api/command", methods=['POST'])
 def command():
     command = request.form.get('command')
-    power = request.form.get('power') == 'true'
+    power = request.form.get('power')
     if command == 'up':
-        return 'up'
+        return 'up '+power
     if command == 'down':
-        return 'down'
+        return 'down '+power
     if command == 'left':
-        return 'left'
+        return 'left '+power
     if command == 'right':
-        return 'right'
+        return 'right '+power
 
 
 def gen(camera):
