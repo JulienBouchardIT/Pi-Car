@@ -42,6 +42,7 @@ function key_to_command(key){
 }
 
 function down(event){
+    console.log(event);
     var keyCode = (window.event) ? event.which : event.keyCode;
     send_command(false, key_to_command(keyCode));
 }
