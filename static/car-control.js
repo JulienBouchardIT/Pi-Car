@@ -1,19 +1,41 @@
 
+function send_command(power, command){
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "http://192.168.0.102:80/api/command",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Accept": "*/*",
+        "Cache-Control": "no-cache",
+        "Host": "192.168.0.102:80",
+        "Accept-Encoding": "gzip, deflate",
+        "Content-Length": "23",
+        "Connection": "keep-alive",
+        "cache-control": "no-cache"
+      },
+      "data": {
+        "command": command,
+        "power": power
+      }
+    }
 
-function send_command(power, key){
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
+}
+
+function key_to_command(key){
     switch(key){
         case 87: // w : UP
-            alert("UP "+power)
-            break;
+            return "up";
         case 83: // s : DOWN
-            alert("DOWN "+power)
-            break;
+            return "down";
         case 65: // a : LEFT
-            alert("LEFT "+power)
-            break;
+            return "left";
         case 68: // d : RIGHT
-            alert("RIGHT "+power)
-            break;
+            return "right";
         default:
             break;
     }
