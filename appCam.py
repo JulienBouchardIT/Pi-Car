@@ -6,23 +6,9 @@ from light_led import *
 app = Flask(__name__)
 
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/", methods=['GET'])
 def home():
-    if request.method == 'POST':
-        if request.form.get('red_button') == 'red':
-            red()
-        elif request.form.get('green_button') == 'green':
-            green()
-        elif request.form.get('blue_button') == 'blue':
-            blue()
-        elif request.form.get('on_button') == 'ON':
-            on()
-        elif request.form.get('off_button') == 'OFF':
-            off()
-        resp = jsonify(success=True)
-        return resp
-    else:
-        return render_template("index.html")
+    return render_template("index.html")
 
 
 @app.route("/api/command", methods=['POST'])
@@ -30,13 +16,13 @@ def command():
     command = request.form.get('command')
     power = request.form.get('power') == 'true'
     if command == 'up':
-        up(power)
+        return 'up'
     if command == 'down':
-        down(power)
+        return 'down'
     if command == 'left':
-        left(power)
+        return 'left'
     if command == 'right':
-        right(power)
+        return 'right'
 
 
 def gen(camera):
