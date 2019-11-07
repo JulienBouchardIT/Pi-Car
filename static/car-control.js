@@ -42,9 +42,11 @@ function key_to_command(key){
 }
 
 function down(event){
-    send_command(false, event.keyCode);
+    var keyCode = (window.event) ? e.which : e.keyCode;
+    send_command(false, key_to_command(keyCode));
 }
 
 function up(event){
-    send_command(true, event.keyCode);
+    var keyCode = (window.event) ? e.which : e.keyCode;
+    send_command(true, key_to_command(keyCode));
 }
