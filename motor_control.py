@@ -16,7 +16,7 @@ GPIO.output(in1, GPIO.LOW)
 GPIO.output(in2, GPIO.LOW)
 p = GPIO.PWM(en, 1000)
 p.start(duty)
-p.ChangeDutyCycle(50)  # Speed, should be between 25 et 75 (50 = medium)
+p.ChangeDutyCycle(25)  # Speed, should be between 25 et 75 (50 = medium)
 
 
 def stop():
