@@ -5,7 +5,7 @@ in1 = 24
 in2 = 23
 en = 25
 pause = 1
-duty = 100  # Duty cycle, see: https://lastminuteengineers.com/l298n-dc-stepper-driver-arduino-tutorial/
+duty = 50  # 12v to 6v; Duty cycle, see: https://lastminuteengineers.com/l298n-dc-stepper-driver-arduino-tutorial/
 pause_demo = 1
 
 GPIO.setmode(GPIO.BCM)
@@ -34,6 +34,16 @@ def backward():
     GPIO.output(in2, GPIO.HIGH)
 
 
+def right():
+    # todo
+    print('')
+
+
+def left():
+    # todo
+    print('')
+
+
 def exit():
     GPIO.cleanup()
 
@@ -45,6 +55,7 @@ def demo():
     forward()
     sleep(pause_demo)
     print('Backward')
+    backward()
     sleep(pause_demo)
     print('Stop')
     stop()

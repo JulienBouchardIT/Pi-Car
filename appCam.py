@@ -1,6 +1,6 @@
 from flask import Flask, render_template, Response, request, jsonify
 from camera_pi import Camera
-from light_led import *
+from motor_control import *
 
 
 app = Flask(__name__)
@@ -15,14 +15,17 @@ def home():
 def command():
     command = request.form.get('command')
     power = request.form.get('power')
-    if command == 'up':
-        return 'up '+power
-    if command == 'down':
-        return 'down '+power
-    if command == 'left':
-        return 'left '+power
-    if command == 'right':
-        return 'right '+power
+    if power:
+        if command == 'up':
+            forward()
+        if command == 'down':
+            backward()
+        if command == 'left':
+            right()
+        if command == 'right':
+            left()
+    else:
+        stop()
 
 
 def gen(camera):
