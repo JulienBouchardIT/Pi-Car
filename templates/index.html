@@ -10,7 +10,7 @@
     <body>
         <input type="image" src="{{ url_for('video_feed') }}" onkeydown="down()" onkeyup="up()" width="100%"/>
         <button onclick="send_command('true', 'up')">FORWARD</button>
-        <button onclick="send_command('false', command)">STOP</button>
+        <button onclick="send_command('false', 'up')">STOP</button>
         <button onclick="send_command('true', 'down')">BACKWARD</button>
 
     </body>
