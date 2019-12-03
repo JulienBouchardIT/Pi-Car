@@ -14,7 +14,8 @@ def home():
 @app.route("/api/command", methods=['POST'])
 def command():
     command = request.form.get('command')
-    power = request.form.get('power')
+    power = request.form.get('power') == 'true'
+
     if power:
         if command == 'up':
             forward()
