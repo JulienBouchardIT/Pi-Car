@@ -5,7 +5,7 @@ in1 = 24
 in2 = 23
 en = 25
 pause = 1
-duty = 50  # 12v to 6v; Duty cycle, see: https://lastminuteengineers.com/l298n-dc-stepper-driver-arduino-tutorial/
+duty = 100  # 12v to 6v; Duty cycle, see: https://lastminuteengineers.com/l298n-dc-stepper-driver-arduino-tutorial/
 pause_demo = 1
 
 GPIO.setmode(GPIO.BCM)
