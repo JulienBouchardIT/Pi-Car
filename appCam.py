@@ -1,6 +1,7 @@
 from flask import Flask, render_template, Response, request, jsonify
 from camera_pi import Camera
 from motor_control import *
+import json
 
 
 app = Flask(__name__)
@@ -27,6 +28,7 @@ def command():
             left()
     else:
         stop()
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 
 def gen(camera):

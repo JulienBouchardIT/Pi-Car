@@ -8,6 +8,8 @@ pause = 1
 duty = 100  # 12v to 6v; Duty cycle, see: https://lastminuteengineers.com/l298n-dc-stepper-driver-arduino-tutorial/
 pause_demo = 1
 
+
+GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(in1, GPIO.OUT)
 GPIO.setup(in2, GPIO.OUT)
