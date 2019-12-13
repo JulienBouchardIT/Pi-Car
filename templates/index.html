@@ -6,12 +6,57 @@
         <link rel="stylesheet" href='../static/style.css'/>
         <link rel="shortcut icon" href="../static/rasp-logo.png">
         <script src="../static/car-control.js"></script>
+        <style>
+
+            table{
+                transform: translate(0%, -50px);
+            }
+
+            button{
+                padding: 10 0 0 0;
+                box-shadow: 0px 0px;
+                border: none;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 20px;
+                border-radius: 5px;
+                width: 32px;
+                height: 32px;
+                background-color: rgba(150, 150, 150, .5);
+            }
+            button:active{
+                background-color: rgba(150, 150, 150, .8);
+                padding: 0px;
+            }
+
+            #button_right{
+                transform: rotate(90deg);
+            }
+            #button_left{
+                transform: rotate(-90deg);
+            }
+            #button_down{
+                transform: rotate(180deg);
+            }
+
+        </style>
     </head>
     <body>
         <input type="image" src="{{ url_for('video_feed') }}" onkeydown="down()" onkeyup="up()" width="100%"/>
-        <button onclick="send_command('true', 'up')">FORWARD</button>
-        <button onclick="send_command('false', 'up')">STOP</button>
-        <button onclick="send_command('true', 'down')">BACKWARD</button>
+
+        <table>
+          <tr>
+            <td></td>
+            <td><button id="button_up" onkeydown="send_command('true', 'up')" onkeyup="send_command('false', 'up')">^</button></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><button id="button_left" onkeydown="send_command('true', 'left')" onkeyup="send_command('false', 'left')">^</button></td>
+            <td><button id="button_down" onkeydown="send_command('true', 'down')" onkeyup="send_command('false', 'down')">^</button></td>
+            <td><button id="button_right" onkeydown="send_command('true', 'right')" onkeyup="send_command('false', 'right')">^</button></td>
+          </tr>
+        </table>
 
     </body>
 </html>
