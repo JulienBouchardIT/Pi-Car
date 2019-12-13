@@ -14,13 +14,13 @@
             document.onkeydown = function (e) {
                 key = e.which;
                 if(valid_key(key))
-                    send_command('true', key);
+                    send_command('true', key_to_command(key));
             };
 
             document.onkeyup = function (e) {
                 key = e.which;
                 if(valid_key(key))
-                    send_command('false', key);
+                    send_command('false', key_to_command(key));
             };
 
 
@@ -64,17 +64,6 @@
                     default:
                         break;
                 }
-            }
-
-            function down(event){
-                console.log(event);
-                var keyCode = (window.event) ? event.which : event.keyCode;
-                send_command(false, key_to_command(keyCode));
-            }
-
-            function up(event){
-                var keyCode = (window.event) ? event.which : event.keyCode;
-                send_command(true, key_to_command(keyCode));
             }
         </script>
         <style>
