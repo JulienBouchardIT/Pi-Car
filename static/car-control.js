@@ -1,5 +1,6 @@
 
 function send_command(power, command){
+alert(1)
     var settings = {
       "async": true,
       "crossDomain": true,

@@ -5,8 +5,75 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link rel="stylesheet" href='../static/style.css'/>
         <link rel="shortcut icon" href="../static/rasp-logo.png">
-        <script src="../static/car-control.js"></script>
+        <script>
+
+            document.onkeydown = function (e) {
+                send_command('true', key_to_command(e.which));
+            };
+
+            document.onkeyup = function (e) {
+                send_command('false', key_to_command(e.which));
+            };
+
+
+            function send_command(power, command){
+                var settings = {
+                  "async": true,
+                  "crossDomain": true,
+                  "url": "/api/command",
+                  "method": "POST",
+                  "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Accept": "*/*",
+                    "Cache-Control": "no-cache",
+                    "Host": "192.168.0.102:80",
+                    "Accept-Encoding": "gzip, deflate",
+                    "Content-Length": "23",
+                    "Connection": "keep-alive",
+                    "cache-control": "no-cache"
+                  },
+                  "data": {
+                    "command": command,
+                    "power": power
+                  }
+                }
+
+                $.ajax(settings).done(function (response) {
+                  console.log(response);
+                });
+            }
+
+            function key_to_command(key){
+                switch(key){
+                    case 87: // w : UP
+                        return "up";
+                    case 83: // s : DOWN
+                        return "down";
+                    case 65: // a : LEFT
+                        return "left";
+                    case 68: // d : RIGHT
+                        return "right";
+                    default:
+                        break;
+                }
+            }
+
+            function down(event){
+                console.log(event);
+                var keyCode = (window.event) ? event.which : event.keyCode;
+                send_command(false, key_to_command(keyCode));
+            }
+
+            function up(event){
+                var keyCode = (window.event) ? event.which : event.keyCode;
+                send_command(true, key_to_command(keyCode));
+            }
+        </script>
         <style>
+
+            input{
+                min-height: 500px;
+            }
 
             table{
                 transform: translate(50px, -200px);
@@ -43,7 +110,7 @@
         </style>
     </head>
     <body>
-        <input type="image" src="{{ url_for('video_feed') }}" onkeydown="down()" onkeyup="up()" width="100%"/>
+        <input type="image" src="{{ url_for('video_feed') }}" width="100%"/>
 
         <table>
           <tr>
