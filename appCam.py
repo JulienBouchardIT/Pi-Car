@@ -30,7 +30,7 @@ def command():
             left()
     else:
         stop()
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 def gen(camera):

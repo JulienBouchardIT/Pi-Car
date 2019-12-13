@@ -7,12 +7,20 @@
         <link rel="shortcut icon" href="../static/rasp-logo.png">
         <script>
 
+            function valid_key(key){
+                return key == 87 || key == 83 || key == 65 || key == 68;
+            }
+
             document.onkeydown = function (e) {
-                send_command('true', key_to_command(e.which));
+                key = e.which;
+                if(valid_key(key))
+                    send_command('true', key);
             };
 
             document.onkeyup = function (e) {
-                send_command('false', key_to_command(e.which));
+                key = e.which;
+                if(valid_key(key))
+                    send_command('false', key);
             };
 
 
