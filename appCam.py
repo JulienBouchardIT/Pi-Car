@@ -17,6 +17,8 @@ def command():
     command = request.form.get('command')
     power = request.form.get('power') == 'true'
 
+    print('Command:' + command + ' ' + str(power))
+
     if power:
         if command == 'up':
             forward()
